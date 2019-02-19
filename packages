@@ -1,7 +1,6 @@
 # List packages to add to your image one per line.
 # Python Requirements
 py37-jsonschema
-py37-nacl
 py37-service_identity
 py37-twisted
 py37-treq
