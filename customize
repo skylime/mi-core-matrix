@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+#
+# Put customizations to your image in this file.
+
+PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
+
+MATRIX_SYNAPSE_VERSION=0.99.1.1
+
+# Munin plugins
+MUNIN_PLUGINS="
+"
+
+# Exit if any commands fail
+set -o errexit
+
+echo "* Use default python 3.7"
+pkg_alternatives manual python37
+
+echo "* Install matrix synapse"
+pip install matrix-synapse==${MATRIX_SYNAPSE_VERSION}
+
+echo "* Activate munin plugins"
+/opt/core/bin/munin-node-plugins ${MUNIN_PLUGINS}
+
+echo "* Cleanup home/admin because of delegate dataset usage"
+rm -rf /home/admin/.[^.]*
+
+echo "* Cleaning up"
+rm -rf /root/*
+sm-prepare-image -y
