@@ -4,7 +4,7 @@
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
-MATRIX_SYNAPSE_VERSION=0.99.1.1
+MATRIX_SYNAPSE_VERSION=0.99.3
 
 # Munin plugins
 MUNIN_PLUGINS="
@@ -15,9 +15,25 @@ set -o errexit
 
 echo "* Use default python 3.7"
 pkg_alternatives manual python37
+pkg_alternatives manual py37-pip
+
+echo "* Remove used pgsql stuff from base"
+rm -rf /var/pgsql/*
+
+echo "* Remove any matrix synapse stuff if exists"
+rm -rf /opt/matrix/*
 
 echo "* Install matrix synapse"
 pip install matrix-synapse==${MATRIX_SYNAPSE_VERSION}
+
+echo "* Create matrix-synapse user and home folder"
+mkdir -p /opt/matrix
+groupadd matrix
+useradd -g matrix -s /usr/bin/bash -c "Matrix Synapse" -d /opt/matrix matrix
+passwd -u matrix
+
+echo "* Fix home permissions for matrix user"
+chown -R matrix:matrix /opt/matrix
 
 echo "* Activate munin plugins"
 /opt/core/bin/munin-node-plugins ${MUNIN_PLUGINS}
