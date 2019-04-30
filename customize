@@ -5,6 +5,8 @@
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
 MATRIX_SYNAPSE_VERSION=0.99.3
+RIOT_WEB_VERSION=1.0.8
+RIOT_WEB_URL="https://github.com/vector-im/riot-web/releases/download/v${RIOT_WEB_VERSION}/riot-v${RIOT_WEB_VERSION}.tar.gz"
 
 # Munin plugins
 MUNIN_PLUGINS="
@@ -32,8 +34,13 @@ groupadd matrix
 useradd -g matrix -s /usr/bin/bash -c "Matrix Synapse" -d /opt/matrix matrix
 passwd -u matrix
 
-echo "* Fix home permissions for matrix user"
+echo "* Download and extract riot web interface"
+mkdir -p /var/www
+curl -L "${RIOT_WEB_URL}" | gtar xz -C /var/www --strip-components=1
+
+echo "* Fix home permissions for matrix user and web-root"
 chown -R matrix:matrix /opt/matrix
+chown -R www:www /var/www
 
 echo "* Activate munin plugins"
 /opt/core/bin/munin-node-plugins ${MUNIN_PLUGINS}
