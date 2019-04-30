@@ -22,9 +22,6 @@ pkg_alternatives manual py37-pip
 echo "* Remove used pgsql stuff from base"
 rm -rf /var/pgsql/*
 
-echo "* Remove any matrix synapse stuff if exists"
-rm -rf /opt/matrix/*
-
 echo "* Install matrix synapse"
 pip install matrix-synapse==${MATRIX_SYNAPSE_VERSION}
 
