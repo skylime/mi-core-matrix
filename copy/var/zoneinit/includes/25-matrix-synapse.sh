@@ -10,21 +10,27 @@ if mdata-get matrix_server_name >/dev/null 2>&1; then
 	SERVER_NAME=$(mdata-get matrix_server_name)
 fi
 
-log "Generate homeserver.yaml config if it doesn't exits"
-[ ! -f ${MATRIX_HOME}/homeserver.yaml ] && \
-	sudo -u matrix \
-	generate_config \
-		--config-dir ${MATRIX_HOME} \
-		--data-dir ${MATRIX_HOME}/data \
-		--server-name ${SERVER_NAME} \
-		--report-stats no \
-		--output-file ${MATRIX_HOME}/homeserver.yaml
+log "Generate homeserver.yaml config"
+sudo -u matrix \
+generate_config \
+	--config-dir ${MATRIX_HOME} \
+	--data-dir ${MATRIX_HOME}/data \
+	--server-name ${SERVER_NAME} \
+	--report-stats no \
+	--output-file ${MATRIX_HOME}/homeserver.yaml
 
-log "Generate keys if they doesn't exists"
-[ ! -f ${MATRIX_HOME}/${SERVER_NAME}.signing.key ] && \
+log "Install matrix synapse key signing key file"
+MATRIX_SIGNING_KEY_FILE=${MATRIX_HOME}/${SERVER_NAME}.signing.key
+if mdata-get matrix_signing_key >/dev/null 2>&1; then
+	mdata-get matrix_signing_key > ${MATRIX_SIGNING_KEY_FILE}
+else
+	log "Key file doesn't exists, generating it"
 	sudo -u matrix \
-	python -m synapse.app.homeserver -c ${MATRIX_HOME}/homeserver.yaml \
-	                                 --generate-keys
+		python -m synapse.app.homeserver \
+	                  -c ${MATRIX_HOME}/homeserver.yaml \
+	                  --generate-keys
+	cat ${MATRIX_SIGNING_KEY_FILE} | mdata-put matrix_signing_key
+fi
 
 log "Additional base_url needed based on the server_name"
 cat > ${MATRIX_CONF}/base_url.yaml <<-EOF
@@ -73,13 +79,12 @@ EOF
 fi
 
 log "Generate and store secrets for matrix server"
-MATRIX_REGISTRATION_SHARED_SECRET=$(LC_ALL=C tr -cd '[:alnum:]' < /dev/urandom | head -c64)
-MATRIX_MACAROON_SECRET_KEY=$(LC_ALL=C tr -cd '[:alnum:]' < /dev/urandom | head -c64)
-[ ! -f ${MATRIX_CONF}/secret.yaml ] && \
-	cat > ${MATRIX_CONF}/secret.yaml <<-EOF
-	registration_shared_secret: ${MATRIX_REGISTRATION_SHARED_SECRET}
-	macaroon_secret_key: ${MATRIX_MACAROON_SECRET_KEY}
-	EOF
+MATRIX_REGISTRATION_SHARED_SECRET=$(/opt/core/bin/mdata-create-password.sh -m matrix_registration_shared_secret -e)
+MATRIX_MACAROON_SECRET_KEY=$(/opt/core/bin/mdata-create-password.sh -m matrix_macaroon_secret_key -e)
+cat > ${MATRIX_CONF}/secret.yaml <<-EOF
+registration_shared_secret: ${MATRIX_REGISTRATION_SHARED_SECRET}
+macaroon_secret_key: ${MATRIX_MACAROON_SECRET_KEY}
+EOF
 
 log "Fix permissions for all files stored in ${MATRIX_HOME}"
 chown -R matrix:matrix ${MATRIX_HOME}
