@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='application/matrix-synapse' type='service' version='0'>
+    <dependency name='net-physical' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/network/physical'/>
+    </dependency>
+    <dependency name='filesystem' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <exec_method name='start' type='method' exec='/opt/local/bin/python -m synapse.app.homeserver --config-path=%{config/file} --config-path=%{config/dir}' timeout_seconds='0'/>
+    <exec_method name='stop' type='method' exec=':kill' timeout_seconds='10'/>
+    <exec_method name='refresh' type='method' exec=':kill -HUP' timeout_seconds='60'/>
+    <property_group name='startd' type='framework'>
+      <propval name="duration" type="astring" value="child"/>
+      <propval name='ignore_error' type='astring' value='core,signal'/>
+    </property_group>
+    <instance name='default' enabled='false'>
+      <method_context working_directory='/opt/matrix'>
+        <method_credential user="matrix" group="matrix" privileges='basic,net_privaddr' />
+        <method_environment>
+          <envvar name='PATH' value='/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin:/bin'/>
+        </method_environment>
+      </method_context>
+      <property_group name='config' type='application'>
+        <propval name='file' type='astring' value='/opt/matrix/homeserver.yaml'/>
+        <propval name='dir' type='astring' value='/opt/matrix/conf.d'/>
+      </property_group>
+    </instance>
+    <stability value='Evolving'/>
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>Matrix Synapse Server</loctext>
+      </common_name>
+    </template>
+  </service>
+</service_bundle>
