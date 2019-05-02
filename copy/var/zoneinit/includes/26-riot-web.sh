@@ -7,7 +7,7 @@ if mdata-get matrix_server_name >/dev/null 2>&1; then
 fi
 
 log "Place config.json to riot-web folder"
-cat /var/www/config.json <<-EOF
+cat > /var/www/config.json <<-EOF
 {
     "default_hs_url": "https://${SERVER_NAME}",
     "default_is_url": "https://vector.im",
