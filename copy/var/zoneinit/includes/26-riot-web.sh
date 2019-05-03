@@ -11,6 +11,10 @@ cat > /var/www/config.json <<-EOF
 {
     "default_hs_url": "https://${SERVER_NAME}",
     "default_is_url": "https://vector.im",
+    "disable_guest": true,
+    "disable_3pid_login": true,
+    "default_federate": false,
+    "disable_custom_urls": true,
     "features": {
         "feature_rich_quoting": "labs",
         "feature_pinning": "labs",
@@ -31,27 +35,22 @@ cat > /var/www/config.json <<-EOF
     "branding": {
         "welcomeBackgroundUrl": "",
         "authHeaderLogoUrl": "",
-        "authFooterLinks": {}
+        "authFooterLinks": { }
     },
     "integrations_ui_url": "",
     "integrations_rest_url": "",
     "integrations_widgets_urls": [],
     "default_theme": "dark",
     "cross_origin_renderer_url": "https://usercontent.riot.im/v1.html",
-    "piwik": "false",
-    "welcomeUserId": "@riot-bot:matrix.org",
+    "piwik": false,
+    "welcomeUserId": "",
     "enable_presence_by_hs_url": {
         "https://matrix.org": false
     },
-    "terms_and_conditions_links": [
-        {
-            "url": "https://riot.im/privacy",
-            "text": "Privacy Policy"
-        },
-        {
-            "url": "https://matrix.org/docs/guides/riot_im_cookie_policy",
-            "text": "Cookie Policy"
-        }
-    ]
+    "terms_and_conditions_links": []
 }
 EOF
+
+log "Clean welcome.html because of disabled guest access"
+gsed -in '1,/<!-- BEGIN Ansible/p;/<!-- END Ansible/,$p' \
+	/var/www/welcome.html

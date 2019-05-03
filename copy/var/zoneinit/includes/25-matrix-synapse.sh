@@ -32,6 +32,20 @@ else
 	cat ${MATRIX_SIGNING_KEY_FILE} | mdata-put matrix_signing_key
 fi
 
+log "Add listeners information because ::1 it not working on SmartOS"
+cat > ${MATRIX_CONF}/listeners.yaml <<-EOF
+listeners:
+  - port: 8008
+    tls: false
+    bind_addresses: ['127.0.0.1']
+    type: http
+    x_forwarded: true
+
+    resources:
+      - names: [client, federation]
+        compress: false
+EOF
+
 log "Additional base_url needed based on the server_name"
 cat > ${MATRIX_CONF}/base_url.yaml <<-EOF
 public_baseurl: https://${SERVER_NAME}
