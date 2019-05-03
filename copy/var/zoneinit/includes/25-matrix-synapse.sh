@@ -130,7 +130,7 @@ macaroon_secret_key: ${MATRIX_MACAROON_SECRET_KEY}
 EOF
 
 log "Allow of disallow guest access"
-MATRIX_ALLOW_GUEST_ACCESS=$(mdata-get matrix_allow_guest_access 2>/dev/null)
+MATRIX_ALLOW_GUEST_ACCESS=$(mdata-get matrix_allow_guest_access 2>/dev/null || echo "false")
 if [[ "${MATRIX_ALLOW_GUEST_ACCESS,,}" == "true" ]]; then
 	echo "allow_guest_access: true" > ${MATRIX_CONF}/guest.yaml
 else
@@ -138,7 +138,7 @@ else
 fi
 
 log "Allow or disallow registration"
-MATRIX_ENABLE_REGISTRATION=$(mdata-get matrix_enable_registration 2>/dev/null)
+MATRIX_ENABLE_REGISTRATION=$(mdata-get matrix_enable_registration 2>/dev/null || echo "false")
 if [[ "${MATRIX_ENABLE_REGISTRATION,,}" == "true" ]]; then
 	echo "enable_registration: true" > ${MATRIX_CONF}/registration.yaml
 else
