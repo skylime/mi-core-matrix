@@ -129,6 +129,22 @@ registration_shared_secret: ${MATRIX_REGISTRATION_SHARED_SECRET}
 macaroon_secret_key: ${MATRIX_MACAROON_SECRET_KEY}
 EOF
 
+log "Allow of disallow guest access"
+MATRIX_ALLOW_GUEST_ACCESS=$(mdata-get matrix_allow_guest_access 2>/dev/null)
+if [[ "${MATRIX_ALLOW_GUEST_ACCESS,,}" == "true" ]]; then
+	"allow_guest_access: true" > ${MATRIX_CONF}/guest.yaml
+else
+	"allow_guest_access: false" > ${MATRIX_CONF}/guest.yaml
+fi
+
+log "Allow or disallow registration"
+MATRIX_ENABLE_REGISTRATION=$(mdata-get matrix_enable_registration 2>/dev/null)
+if [[ "${MATRIX_ENABLE_REGISTRATION,,}" == "true" ]]; then
+	echo "enable_registration: true" > ${MATRIX_CONF}/registration.yaml
+else
+	echo "enable_registration: false" > ${MATRIX_CONF}/registration.yaml
+fi
+
 log "Fix permissions for all files stored in ${MATRIX_HOME}"
 chown -R matrix:matrix ${MATRIX_HOME}
 
