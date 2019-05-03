@@ -117,3 +117,6 @@ EOF
 
 log "Fix permissions for all files stored in ${MATRIX_HOME}"
 chown -R matrix:matrix ${MATRIX_HOME}
+
+log "Enable matrix synapse service"
+svcadm enable svc:/application/matrix-synapse:default

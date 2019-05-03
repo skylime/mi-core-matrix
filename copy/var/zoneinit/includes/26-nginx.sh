@@ -6,11 +6,14 @@ SVC_NAME='svc:/pkgsrc/nginx:default'
 
 mkdir -p "${SSL_HOME}"
 
-# Self-signed certificate generator
+log "Self-signed certificate generator"
 /opt/core/bin/ssl-selfsigned.sh -d ${SSL_HOME} -f nginx
 
-# Enable nginx+php-fpm webserver service
+log "Enable nginx+php-fpm webserver service"
 svcadm enable -s ${SVC_NAME}
 
-# Try to obtain Let's Encrypt SSL certificate
-#/opt/core/bin/ssl-generator.sh ${SSL_HOME} nginx_ssl nginx ${SVC_NAME}
+log "Try to obtain Let's Encrypt SSL certificate"
+/opt/core/bin/ssl-generator.sh ${SSL_HOME} nginx_ssl nginx ${SVC_NAME}
+
+log "Restart ${SVC_NAME}"
+svcadm restart ${SVC_NAME}
