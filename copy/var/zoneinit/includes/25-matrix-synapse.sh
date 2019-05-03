@@ -132,9 +132,9 @@ EOF
 log "Allow of disallow guest access"
 MATRIX_ALLOW_GUEST_ACCESS=$(mdata-get matrix_allow_guest_access 2>/dev/null)
 if [[ "${MATRIX_ALLOW_GUEST_ACCESS,,}" == "true" ]]; then
-	"allow_guest_access: true" > ${MATRIX_CONF}/guest.yaml
+	echo "allow_guest_access: true" > ${MATRIX_CONF}/guest.yaml
 else
-	"allow_guest_access: false" > ${MATRIX_CONF}/guest.yaml
+	echo "allow_guest_access: false" > ${MATRIX_CONF}/guest.yaml
 fi
 
 log "Allow or disallow registration"
