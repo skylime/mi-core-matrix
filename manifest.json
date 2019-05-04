@@ -1,6 +1,6 @@
 {
   "name": "core-matrix",
-  "version": "18.4.0-2fae858",
+  "version": "18.4.0",
   "description": "Matrix Synapse Server, open federated Instant Messaging and VoIP",
   "organization": "SkyLime",
   "brand": "Instance",
@@ -62,6 +62,18 @@
     "munin_master_allow": {
       "type": "text",
       "description": "ip addresses (alternative hostname) of the munin master node"
+    },
+    "matrix_server_name": {
+      "type": "text",
+      "description": "matrix synapse server name, if not provided the fqdn is used"
+    },
+    "matrix_allow_guest_access": {
+      "type": "text",
+      "description": "set to true if guest access to matrix synapse should be allowed"
+    },
+    "matrix_enable_registration": {
+      "type": "text",
+      "description": "set to true if user registration to matrix synapse should be allowed"
     }
   }
 }
