@@ -84,6 +84,9 @@ root:
     handlers: [file, console]
 EOF
 
+log "Add logadm rule for log files"
+logadm -w '/opt/matrix/log/homeserver.log' -A 7d -p 1d -c -N -m 640
+
 log "Generate config file for pgsql connection"
 cat > ${MATRIX_CONF}/database.yaml <<-EOF
 database:
