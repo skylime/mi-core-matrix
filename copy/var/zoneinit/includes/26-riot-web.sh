@@ -52,5 +52,5 @@ cat > /var/www/config.json <<-EOF
 EOF
 
 log "Clean welcome.html because of disabled guest access"
-gsed -in '1,/<!-- BEGIN Ansible/p;/<!-- END Ansible/,$p' \
+gsed -n -i '1,/<!-- BEGIN Ansible/p;/<!-- END Ansible/,$p' \
 	/var/www/welcome.html
