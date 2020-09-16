@@ -9,45 +9,52 @@ fi
 log "Place config.json to riot-web folder"
 cat > /var/www/config.json <<-EOF
 {
-    "default_hs_url": "https://${SERVER_NAME}",
-    "default_is_url": "https://vector.im",
-    "disable_guest": true,
-    "disable_3pid_login": true,
-    "default_federate": false,
-    "disable_custom_urls": true,
+    "default_server_config": {
+        "m.homeserver": {
+            "base_url": "https://${SERVER_NAME}",
+            "server_name": "${SERVER_NAME}"
+        },
+        "m.identity_server": {
+            "base_url": "https://vector.im"
+        }
+    },
+    "disable_custom_urls": false,
+    "disable_guests": false,
+    "disable_login_language_selector": false,
+    "disable_3pid_login": false,
+    "brand": "Element",
+    "integrations_ui_url": "https://scalar.vector.im/",
+    "integrations_rest_url": "https://scalar.vector.im/api",
+    "integrations_widgets_urls": [
+        "https://scalar.vector.im/_matrix/integrations/v1",
+        "https://scalar.vector.im/api",
+        "https://scalar-staging.vector.im/_matrix/integrations/v1",
+        "https://scalar-staging.vector.im/api",
+        "https://scalar-staging.riot.im/scalar/api"
+    ],
+    "bug_report_endpoint_url": "https://element.io/bugreports/submit",
+    "defaultCountryCode": "GB",
+    "showLabsSettings": true,
     "features": {
-        "feature_rich_quoting": "labs",
-        "feature_pinning": "labs",
-        "feature_presence_management": "labs",
-        "feature_sticker_messages": "labs",
-        "feature_jitsi": "labs",
-        "feature_tag_panel": "enable",
-        "feature_keybackup": "labs",
-        "feature_custom_status": "labs",
-        "feature_custom_tags": "labs",
-        "feature_lazyloading": "enable",
-        "feature_tabbed_settings": "labs",
-        "feature_sas": "labs",
-        "feature_room_breadcrumbs": "labs",
-        "feature_state_counters": "labs"
+        "feature_new_spinner": false
     },
-    "brand": "Riot",
-    "branding": {
-        "welcomeBackgroundUrl": "",
-        "authHeaderLogoUrl": "",
-        "authFooterLinks": { }
+    "default_federate": true,
+    "default_theme": "light",
+    "roomDirectory": {
+        "servers": [
+            "${SERVER_NAME}",
+            "matrix.org"
+        ]
     },
-    "integrations_ui_url": "",
-    "integrations_rest_url": "",
-    "integrations_widgets_urls": [],
-    "default_theme": "dark",
-    "cross_origin_renderer_url": "https://usercontent.riot.im/v1.html",
-    "piwik": false,
-    "welcomeUserId": "",
+    "welcomeUserId": "@riot-bot:${SERVER_NAME}",
+    "piwik": { },
     "enable_presence_by_hs_url": {
-        "https://matrix.org": false
+        "https://${SERVER_NAME}": false
     },
-    "terms_and_conditions_links": []
+    "settingDefaults": {
+        "breadcrumbs": true
+    },
+    "jitsi": { }
 }
 EOF
 
