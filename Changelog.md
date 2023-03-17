@@ -1,5 +1,27 @@
 # Changelog
 
+## 22.4.0
+
+### New
+
+* Switch to Matrix Synapse 1.73.0 (core-base 22Q4) [Thomas Merkel]
+
+  Switching to latest stable Matrix Synapse version. This upgrade could
+  not performed automatically because of PostgreSQL. Please create a
+  database dump before upgrading to this version.
+
+  Additional changes:
+
+  * python version 3.10
+  * postgresql version 14.x
+  * latest riot webui aka element
+  * restructure data location and config location
+  * using of pkgsrc matrix-synapse package
+
+### Other
+
+* Add logadm rule for homeserver.log. [Thomas Merkel]
+
 ## 18.4.0
 
 ### New
