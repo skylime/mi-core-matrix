@@ -27,7 +27,7 @@ if ! psql -U postgres -lqt | cut -d \| -f 1 | grep -qw synapse 2>/dev/null; then
 	export PGPASSWORD=$(mdata-get pgsql_pw)
 	createuser -U postgres -s synapse
 	createdb synapse -U postgres -O synapse \
-		--encoding='utf-8' --locale='en_US.UTF-8' --template=template0
+		--encoding=UTF8 --locale=C --template=template0
 
 	if TAIGA_PGSQL_PW=$(/opt/core/bin/mdata-create-password.sh -m synapse_pgsql_pw 2>/dev/null); then
 		psql -U synapse -d synapse -c "alter user postgres with password '${TAIGA_PGSQL_PW}';"

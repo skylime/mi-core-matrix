@@ -1,30 +1,10 @@
 # List packages to add to your image one per line.
-# Python Requirements
-py37-pip
-py37-jsonschema
-py37-service_identity
-py37-twisted
-py37-treq
-py37-yaml
-py37-asn1
-py37-asn1-modules
-py37-daemonize
-py37-bcrypt
-py37-Pillow
-py37-sortedcontainers
-py37-psutil
-py37-msgpack
-py37-phonenumbers
-py37-six
-py37-attrs
-py37-netaddr
-py37-jinja2
-py37-bleach
-py37-nacl
+# Python Requirements (are moved to venv building)
+py310-pip
+py310-psycopg2
+# Matrix
+matrix-synapse
 # Database
-py37-psycopg2
-postgresql96-server
-postgresql96-contrib
-postgresql96-client
+postgresql14-server
 # Web Proxy
 nginx

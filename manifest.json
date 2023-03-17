@@ -1,11 +1,11 @@
 {
   "name": "core-matrix",
-  "version": "20.2.0",
+  "version": "22.4.0",
   "description": "Matrix Synapse Server, open federated Instant Messaging and VoIP",
   "organization": "SkyLime",
   "brand": "Instance",
   "homepage": "https://github.com/skylime/mi-core-matrix",
-  "base": "6be3b1c7-a8f3-4f44-82c8-7a58df74706b",
+  "base": "2a3a8606-8bb3-42c3-b3ed-61293b3c80e8",
   "customer_metadata": {
     "admin_authorized_keys": {
       "type": "text",
