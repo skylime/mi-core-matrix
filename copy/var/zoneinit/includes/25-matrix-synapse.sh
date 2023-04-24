@@ -160,5 +160,19 @@ fi
 log "Fix permissions for all files stored in ${MATRIX_HOME}"
 chown -R synapse:synapse ${MATRIX_HOME} ${MATRIX_DATA}
 
-log "Enable matrix synapse service"
-svcadm enable svc:/pkgsrc/matrix-synapse:default
+if [ -f "/var/pgsql/backup/dump.sql" ]; then
+  log "Require dump.sql to be imported and service startup"
+  cp /etc/motd /etc/motd.clean
+  cat >> /etc/motd <<-EOF
+ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+ ┃ Operation task required:                                           ┃
+ ┃    $ sudo -u synapse psql synapse < /var/pgsql/backup/dump.sql     ┃
+ ┃    $ mv /var/pgsql/backup/{dump.sql,dump_$(date +%Y%m%d).sql}             ┃
+ ┃    $ svcadm enable svc:/pkgsrc/matrix-synapse:default              ┃
+ ┃    $ /opt/core/bin/motd-cleanup                                    ┃
+ ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+EOF
+else
+  log "Enable matrix synapse service"
+  svcadm enable svc:/pkgsrc/matrix-synapse:default
+fi

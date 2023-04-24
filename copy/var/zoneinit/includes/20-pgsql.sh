@@ -29,7 +29,7 @@ if ! psql -U postgres -lqt | cut -d \| -f 1 | grep -qw synapse 2>/dev/null; then
 	createdb synapse -U postgres -O synapse \
 		--encoding=UTF8 --locale=C --template=template0
 
-	if TAIGA_PGSQL_PW=$(/opt/core/bin/mdata-create-password.sh -m synapse_pgsql_pw 2>/dev/null); then
-		psql -U synapse -d synapse -c "alter user postgres with password '${TAIGA_PGSQL_PW}';"
+	if USER_PGSQL_PW=$(/opt/core/bin/mdata-create-password.sh -m synapse_pgsql_pw 2>/dev/null); then
+		psql -U synapse -d synapse -c "alter user postgres with password '${USER_PGSQL_PW}';"
 	fi
 fi

@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Minimal script to reset a matrix user password.
+
+MATRIX_SERVER='http://localhost:8008'
+MATRIX_ADMIN_PWD=$(mdata-get matrix_admin_pw 2>/dev/null)
+
+##
+## Function
+##
+_help() {
+  echo "$(basename ${0}) [-s SERVER] [-a ADMIN_PASSWORD] -u USER -p NEW_PASSWORD"
+  exit 1
+}
+_die() {
+  echo "ERROR: ${*}"
+  exit 2
+}
+
+##
+## Arguments
+##
+while getopts 'hs:a:u:p:l' opt; do
+  case "${opt}" in
+    h) _help ;;
+    s) MATRIX_SERVER=${OPTARG}    ;;
+    a) MATRIX_ADMIN_PWD=${OPTARG} ;;
+    u) MATRIX_USER=${OPTARG}      ;;
+    p) MATRIX_PASS=${OPTARG}      ;;
+    *) _help ;;
+  esac
+done
+shift "$(($OPTIND -1))"
+
+##
+## Check
+##
+if [[ -z "${MATRIX_ADMIN_PWD}" || -z "${MATRIX_USER}" || -z "${MATRIX_PASS}" ]]; then
+  _help
+fi
+
+
+##
+## Main
+##
+admin_token=$(
+  curl -s -XPOST -d \
+    '{"type":"m.login.password", "user":"admin", "password":"'${MATRIX_ADMIN_PWD}'"}' \
+    "${MATRIX_SERVER}/_matrix/client/r0/login" |\
+    jq -r '.access_token'
+)
+
+if [[ -z "${admin_token}" ]]; then
+  _die "Admin token not received!"
+fi
+
+if [[ ! ${MATRIX_USER} =~ ^@.*:.* ]]; then
+  MATRIX_USER="@${MATRIX_USER}:$(hostname)"
+fi
+
+curl -XPOST \
+  -H "Authorization: Bearer ${admin_token}" \
+  -H "Content-Type: application/json" \
+  -d '{"new_password":"'${MATRIX_PASS}'"}' \
+  "${MATRIX_SERVER}/_synapse/admin/v1/reset_password/${MATRIX_USER}"
+echo

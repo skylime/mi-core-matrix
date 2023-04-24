@@ -4,7 +4,9 @@ py310-pip
 py310-psycopg2
 # Matrix
 matrix-synapse
-# Database
+# Tooling
+jq
+## Database
 postgresql14-server
 # Web Proxy
 nginx
