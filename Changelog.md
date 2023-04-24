@@ -1,5 +1,20 @@
 # Changelog
 
+## 22.4.1
+
+### New
+
+* Provide pgsql dump and upgrade handling. [Thomas Merkel]
+
+  Lookup for dump.sql file to provide a easy way to upgrade postgreSQL in
+  an re-provision environment. Additional service and motd handling for
+  better operational tasks.
+
+  Fixing nginx.conf for latest matrix-synapse service.
+
+  Providing new reset_matrix_user script to easily handle password resets
+  as admin user.
+
 ## 22.4.0
 
 ### New

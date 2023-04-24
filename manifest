@@ -1,7 +1,7 @@
 name="core-matrix"
 organization="SkyLime"
 brand="Instance"
-version="22.4.0"
+version="22.4.1"
 description="Matrix Synapse Server, open federated Instant Messaging and VoIP"
 homepage="https://github.com/skylime/mi-core-matrix"
 users="root admin"
