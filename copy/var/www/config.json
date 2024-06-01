@@ -38,7 +38,7 @@
     },
     "setting_defaults": {
         "breadcrumbs": true,
-        "UIFeature.registration": false
+        "UIFeature.registration": true
     },
     "jitsi": {
         "preferred_domain": "meet.element.io"
