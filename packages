@@ -1,7 +1,8 @@
 # List packages to add to your image one per line.
 # Python Requirements (are moved to venv building)
-py310-pip
-py310-psycopg2
+py311-pip
+py311-psycopg2
+py311-packaging
 # Matrix
 matrix-synapse
 # Tooling
