@@ -11,3 +11,16 @@ jq
 postgresql14-server
 # Web Proxy
 nginx
+## Bridges
+# irc (heisenbridge)
+py311-aiohttp
+py311-ruamel-yaml
+py311-ruamel-yaml-clib
+# telegram
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/py311-cryptg-0.4.tgz
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/py311-olm-3.2.16.tgz
+olm
+py311-asyncpg
+py311-cares
+py311-cryptodome
+py311-magic
