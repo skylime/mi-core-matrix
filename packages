@@ -11,3 +11,8 @@ jq
 postgresql14-server
 # Web Proxy
 nginx
+## Bridges
+# irc (heisenbridge)
+py311-aiohttp
+py311-ruamel-yaml
+py311-ruamel-yaml-clib

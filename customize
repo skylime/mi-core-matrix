@@ -24,6 +24,10 @@ curl -L "${WEB_URL}" | gtar xz -C /var/www --strip-components=1
 echo "* Fix home permissions for web-root"
 chown -R www:www /var/www
 
+echo "* Matrix Bridge installation"
+echo "** irc (heisenbridge)"
+/opt/core/bin/install_matrix_app_service heisenbridge 1.14.6
+
 echo "* Activate munin plugins"
 /opt/core/bin/munin-node-plugins ${MUNIN_PLUGINS}
 

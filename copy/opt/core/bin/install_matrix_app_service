@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Simple workaround script for matrix app service installations based on python code.
+
+appservice=${1}
+appservice_version=${2}
+
+MATRIX_HOME=/opt/local/etc/matrix-synapse
+
+echo "* Install Matrix AppServices (pkgsrc dependencies should be installed before)"
+groupadd "m-app-${appservice%[*}"
+useradd -m -g "m-app-${appservice%[*}" -d "/opt/m-app-${appservice%[*}" -c "Matrix AppService ${appservice%[*}" \
+    -s /usr/bin/false "m-app-${appservice%[*}"
+python3 -m venv --system-site-packages "/opt/m-app-${appservice%[*}/env"
+/opt/m-app-"${appservice%[*}"/env/bin/pip install \
+    "${appservice}==${appservice_version}"
+
+echo "* Create app configuration folder"
+mkdir -p "${MATRIX_HOME}/apps"
+
+echo "* Set permissions to all files and folders"
+chown -R "m-app-${appservice%[*}:m-app-${appservice%[*}" "/opt/m-app-${appservice%[*}"
