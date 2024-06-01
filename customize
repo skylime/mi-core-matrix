@@ -4,7 +4,7 @@
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
-WEB_VERSION=1.11.25
+WEB_VERSION=1.11.67
 WEB_URL="https://github.com/vector-im/element-web/releases/download/v${WEB_VERSION}/element-v${WEB_VERSION}.tar.gz"
 
 # Munin plugins
@@ -24,12 +24,11 @@ curl -L "${WEB_URL}" | gtar xz -C /var/www --strip-components=1
 echo "* Fix home permissions for web-root"
 chown -R www:www /var/www
 
-
 echo "* Activate munin plugins"
 /opt/core/bin/munin-node-plugins ${MUNIN_PLUGINS}
 
 echo "* Cleanup home/admin because of delegate dataset usage"
-rm -rf /home/admin
+rm -rf /home/admin/.[^.]*
 
 echo "* Cleaning up"
 rm -rf /root/*
