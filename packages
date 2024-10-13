@@ -4,7 +4,8 @@ py311-pip
 py311-psycopg2
 py311-packaging
 # Matrix
-matrix-synapse
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/py311-python-multipart-0.0.9.tgz
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/matrix-synapse-1.114.0.tgz
 # Tooling
 jq
 ## Database
