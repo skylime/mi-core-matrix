@@ -1,5 +1,14 @@
 # Changelog
 
+## 23.4.0
+
+### New
+
+* Switch to matrix-synapse version 1.114. [Thomas Merkel]
+- Initial commit to handle app services like IRC. [Thomas Merkel]
+- Switch to core-base 23.4.1. [Thomas Merkel]
+- Enable registration with tokens. [Thomas Merkel]
+
 ## 22.4.1
 
 ### New
