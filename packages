@@ -1,19 +1,20 @@
 # List packages to add to your image one per line.
 # Python Requirements (are moved to venv building)
-py311-pip
-py311-psycopg2
-py311-packaging
+py313-pip
+py313-psycopg2
+py313-packaging
 # Matrix
-https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/py311-python-multipart-0.0.9.tgz
-https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/matrix-synapse-1.114.0.tgz
+#https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/py313-python-multipart
+#https://packages.pkgsrc.pub/skylime-extra/SmartOS/2023Q4/x86_64/matrix-synapse-1.114.0.tgz
+matrix-synapse
 # Tooling
 jq
 ## Database
-postgresql14-server
+postgresql16
 # Web Proxy
 nginx
 ## Bridges
 # irc (heisenbridge)
-py311-aiohttp
-py311-ruamel-yaml
-py311-ruamel-yaml-clib
+py313-aiohttp
+py313-ruamel-yaml
+py313-ruamel-yaml-clib

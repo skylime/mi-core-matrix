@@ -1,5 +1,15 @@
 # Changelog
 
+## trunk-20260110
+
+### New
+
+- Provide trunk build to support latest matrix-synapse version
+
+    * default python version 3.13
+    * matrix-synapse vesion 1.140.0
+    * element web version 1.12.7
+
 ## 23.4.0
 
 ### New

@@ -4,7 +4,7 @@
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
-WEB_VERSION=1.11.67
+WEB_VERSION=1.12.7
 WEB_URL="https://github.com/vector-im/element-web/releases/download/v${WEB_VERSION}/element-v${WEB_VERSION}.tar.gz"
 
 # Munin plugins
@@ -26,7 +26,7 @@ chown -R www:www /var/www
 
 echo "* Matrix Bridge installation"
 echo "** irc (heisenbridge)"
-/opt/core/bin/install_matrix_app_service heisenbridge 1.14.6
+/opt/core/bin/install_matrix_app_service heisenbridge 1.15.4
 
 echo "* Activate munin plugins"
 /opt/core/bin/munin-node-plugins ${MUNIN_PLUGINS}
