@@ -1,6 +1,6 @@
 {
   "name": "core-matrix-trunk",
-  "version": "20260110",
+  "version": "20260112",
   "description": "Matrix Synapse Server, open federated Instant Messaging and VoIP",
   "organization": "SkyLime",
   "brand": "Instance",
