@@ -3,6 +3,9 @@
 py313-pip
 py313-psycopg2
 py313-packaging
+# Workaround correct pydantic versions
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/trunk/x86_64/py313-pydantic-2.12.5.tgz
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/trunk/x86_64/py313-pydantic-core-2.41.5.tgz
 # Matrix
 https://packages.pkgsrc.pub/skylime-extra/SmartOS/trunk/x86_64/matrix-synapse-1.144.0.tgz
 # Tooling
