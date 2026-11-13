@@ -30,6 +30,7 @@ if mdata-get matrix_signing_key > /dev/null 2>&1; then
     mdata-get matrix_signing_key > ${MATRIX_SIGNING_KEY_FILE}
 else
     log "Key file doesn't exists, generating it"
+    cp ${MATRIX_CONF}/00_default.yaml ${MATRIX_HOME}/homeserver.yaml
     python -m synapse.app.homeserver \
         -c ${MATRIX_HOME}/homeserver.yaml \
         --generate-keys
