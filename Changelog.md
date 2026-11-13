@@ -1,5 +1,21 @@
 # Changelog
 
+## 25.4.0
+
+### Bug Fixes
+
+- Heisenbridge url for media [Thomas Merkel]
+- Initial secret key generation [Thomas Merkel]
+
+### Features
+
+- Provide well known client file and fix proxy_pass [Thomas Merkel]
+  * Move http2 directive to correct location
+  * Add well known client output
+  * Fix proxy connection to ipv4 only
+- Update heisenbridge [Thomas Merkel]
+- Update to matrix-synapse 1.163.1 [Thomas Merkel]
+
 ## 23.4.0
 
 ### New
